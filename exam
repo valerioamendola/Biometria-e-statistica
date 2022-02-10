@@ -24,19 +24,25 @@ mydata<-BCI_env
 colnames(mydata)<- c("UTM.EW", "UTM.NS", "Precipitation", "Elevation", "Age.cat" , "Geology", "Habitat", "River", "EnvHet")
 # osservo la tabella aggiornata
 View(mydata)
-# per osservare dove è presente un NA all'interno del dataset
-is.na(BCI_env)
-#per eliminare la riga contente l'NA (non sono sicuro vada fatto)
+# per osservare dove è presente un NA all'interno del dataset (PRIMA DI QUESTO DEVO TRASFORMARE IN NA GLI SPAZI VUOTI!!!!!!!)
+is.na(mydata)
+#per eliminare la riga contente l'NA
 na.omit(BCI_env)
+# elimino la riga
+Envdata <- mydata[-15,]
+View(Envdata)
 # devo eliminare la riga 15 anche nel dataframe della matrice di comunità
 newdata <- BCI[-15,]
 # osservo la tabella aggiornata
 View(newdata)
-# rinomino new data come BCI2
-BCI2<- ENV
+# rinomino newdata come BCI2
+BCI2<- newdata
 # riosservo
 View(BCI2)
-
+#alla riga 12 e 45 sono presenti spazi vuoti che vanno trasformati come NA
+Envdata[Envdata == ""] <- NA
+# rimuovo le righe contnenti i nuovi NA
+Envdata <- Envdata[-12,-45]
 
 
 
