@@ -1,0 +1,43 @@
+# carico la liberia vegan per poter osservare i dati BCI
+library(vegan)
+# importo i dataset utili all'analisi
+BCI <- read.csv("~/Scienze e gestione della natura/Biometria e statistica 2/BCI project/Dati/BCI.csv")
+# osservo il dataset
+View(BCI)
+# importo i dataset utili all'analisi
+BCI_env <- read.csv("~/Scienze e gestione della natura/Biometria e statistica 2/BCI project/Dati/BCI_env.txt", sep="")
+# osservo il dataset
+View(BCI_env)
+# per leggere la documentazione e comprendere di che dati si tratta
+?BCI
+# per contare le righe (25)
+nrow(BCI)
+nrow(BCI_env)
+# per contare le colonne (225)
+ncol(BCI)
+# per rinominare stream sostituendolo con river come nella documentazione
+# prima osservo i nomi 
+names(BCI_env)
+# attribuisco al dataset la denominazione my data
+mydata<-BCI_env
+# poi posso rinominare la colonna stream
+colnames(mydata)<- c("UTM.EW", "UTM.NS", "Precipitation", "Elevation", "Age.cat" , "Geology", "Habitat", "River", "EnvHet")
+# osservo la tabella aggiornata
+View(mydata)
+# per osservare dove è presente un NA all'interno del dataset
+is.na(BCI_env)
+#per eliminare la riga contente l'NA (non sono sicuro vada fatto)
+na.omit(BCI_env)
+# devo eliminare la riga 15 anche nel dataframe della matrice di comunità
+newdata <- BCI[-15,]
+# osservo la tabella aggiornata
+View(newdata)
+# rinomino new data come BCI2
+BCI2<- ENV
+# riosservo
+View(BCI2)
+
+
+
+
+
