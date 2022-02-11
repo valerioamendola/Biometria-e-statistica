@@ -24,11 +24,9 @@ mydata<-BCI_env
 colnames(mydata)<- c("UTM.EW", "UTM.NS", "Precipitation", "Elevation", "Age.cat" , "Geology", "Habitat", "River", "EnvHet")
 # osservo la tabella aggiornata
 View(mydata)
-# per osservare dove è presente un NA all'interno del dataset (PRIMA DI QUESTO DEVO TRASFORMARE IN NA GLI SPAZI VUOTI!!!!!!!)
+# per osservare dove è presente un NA all'interno del dataset
 is.na(mydata)
-#per eliminare la riga contente l'NA
-na.omit(BCI_env)
-# elimino la riga
+#per eliminare la riga contente l'NA (potevo utliizzare anche na.omit)
 Envdata <- mydata[-15,]
 View(Envdata)
 # devo eliminare la riga 15 anche nel dataframe della matrice di comunità
@@ -41,8 +39,32 @@ BCI2<- newdata
 View(BCI2)
 #alla riga 12 e 45 sono presenti spazi vuoti che vanno trasformati come NA
 Envdata[Envdata == ""] <- NA
-# rimuovo le righe contnenti i nuovi NA
-Envdata <- Envdata[-12,-45]
+# rimuovo le righe contenenti i nuovi NA
+Envdata <- Envdata[-c(12, 44),]
+# rimuovo le stesse righe anche dall'altro dataframe
+BCI2 <- BCI2[-c(12, 44),]
+# statistiche riassuntive variabili ambientali
+summary(Envdata)
+# rappresentazioni grafiche
+## istogramma
+hist(Envdata$EnvHet,main="Distribuzione dell'eterogeneità ambientale",xlab="Indice di Simpson",ylab="Plot",ylim=c(0,50))
+dev.off()
+## barplot per variabili categoriche
+Age.cat<-table(Envdata$Age.cat)
+barplot(Age.cat,main="Forest age category",ylab="Frequenza",col=c("red","blue"))
+dev.off()
+Habitat<-table(Envdata$Habitat)
+barplot(Habitat,main="Habitat",ylab="Frequenza",col=c("yellow","green","red", "blue","orange"))
+dev.off()
+# trasformo in matrice presenza/assenza (0=assenza,1=presenza)
+BCIpa<-decostand(BCI2,method="pa")
+# calcolo la ricchezza di specie e aggiungo una nuova matrice (colonna)
+sp_richness<-specnumber(BCIpa,MARGIN=1)
+BCIsprichness<-cbind(Envdata,sp_richness)
+View(BCIsprichness)
+
+
+
 
 
 
