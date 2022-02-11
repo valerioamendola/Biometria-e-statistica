@@ -62,7 +62,22 @@ BCIpa<-decostand(BCI2,method="pa")
 sp_richness<-specnumber(BCIpa,MARGIN=1)
 BCIsprichness<-cbind(Envdata,sp_richness)
 View(BCIsprichness)
+#1 plot (le precipitazioni non influenzano la ricchezza di specie)
+plot(sp_richness~Precipitation,data=BCIsprichness)
+# test di correlazione
+cor.test(BCIsprichness$Precipitation,BCIsprichness$sp_richness)
+#2 plot(sp_richness~Elevation,data=BCIsprichness)
+# T.test
+sp_Age.cat<-table(BCIsprichness$sp_richness,BCIsprichness$Age.cat)
+t.test(sp_Age.cat)
+sp_geology<-table(BCIsprichness$sp_richness,BCIsprichness$Geology)
+t.test(sp_geology)
+sp_habitat<-table(BCIsprichness$sp_richness,BCIsprichness$Habitat)
+t.test(sp_habitat)
+sp_river<-table(BCIsprichness$sp_richness,BCIsprichness$River)
+t.test(sp_river)
 
+ 
 
 
 
