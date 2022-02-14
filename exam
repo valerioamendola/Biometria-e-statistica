@@ -13,8 +13,6 @@ nrow(BCI)
 nrow(BCI_env)
 # per contare le colonne (225)
 ncol(BCI)
-# per controllare la struttura delle variabili
-str(BCI_env)
 # per rinominare stream sostituendolo con river come nella documentazione
 # prima osservo i nomi 
 names(BCI_env)
@@ -46,16 +44,18 @@ Envdata <- Envdata[-c(12, 44),]
 BCI2 <- BCI2[-c(12, 44),]
 # statistiche riassuntive variabili ambientali
 summary(Envdata)
+# per controllare la struttura delle variabili
+str(Envdata)
 # rappresentazioni grafiche
 ## istogramma
 hist(Envdata$EnvHet,main="Distribuzione dell'eterogeneità ambientale",xlab="Indice di Simpson",ylab="Plot",ylim=c(0,50))
 dev.off()
 ## barplot per variabili categoriche
 Age.cat<-table(Envdata$Age.cat)
-barplot(Age.cat,main="Forest age category",ylab="Frequenza",col=c("red","blue"))
+barplot(Age.cat,main="Forest age category",ylab="Frequenze",col=c("red","blue"))
 dev.off()
 Habitat<-table(Envdata$Habitat)
-barplot(Habitat,main="Habitat",ylab="Frequenza",col=c("yellow","green","red", "blue","orange"))
+barplot(Habitat,main="Habitat",ylab="Frequenze",col=c("yellow","green","red", "blue","orange"))
 dev.off()
 # trasformo in matrice presenza/assenza (0=assenza,1=presenza)
 BCIpa<-decostand(BCI2,method="pa")
@@ -65,21 +65,9 @@ BCIsprichness<-cbind(Envdata,sp_richness)
 View(BCIsprichness)
 #1 plot (le precipitazioni non influenzano la ricchezza di specie)
 plot(sp_richness~Precipitation,data=BCIsprichness)
-# test di correlazione
+# test di correlazione tra precipitazioni e ricchezza di specie
 cor.test(BCIsprichness$Precipitation,BCIsprichness$sp_richness)
-#2 (l'altitudine non influenza la ricchezza di specie)
+#2 test di correlazione tra altitudine sul livello del mare e ricchezza di specie
 plot(sp_richness~Elevation,data=BCIsprichness)
-# T.test per variabili categoriche
-sp_Age.cat<-table(BCIsprichness$sp_richness,BCIsprichness$Age.cat)
-t.test(sp_Age.cat)
-sp_geology<-table(BCIsprichness$sp_richness,BCIsprichness$Geology)
-t.test(sp_geology)
-sp_habitat<-table(BCIsprichness$sp_richness,BCIsprichness$Habitat)
-t.test(sp_habitat)
-sp_river<-table(BCIsprichness$sp_richness,BCIsprichness$River)
-t.test(sp_river)
-
-
-
 
 
