@@ -8,11 +8,12 @@ BCI_env<-read.table("Dati/BCI_env.txt",header=T,fill=T,na.strings="",sep=" ")
 View(BCI_env)
 # per leggere la documentazione e comprendere di che dati si tratta
 ?BCI
-# per contare le righe (25)
+# per contare le righe (50)
 nrow(BCI)
 nrow(BCI_env)
 # per contare le colonne (225)
 ncol(BCI)
+ncol(BCI_env)
 # per rinominare stream sostituendolo con river come nella documentazione
 # prima osservo i nomi 
 names(BCI_env)
@@ -26,7 +27,7 @@ View(mydata)
 is.na(mydata)
 # per osservare in dettaglio la posizione degli NA
 which(is.na(mydata),arr.ind=T) 
-#per eliminare la riga contente l'NA (potevo utilizzare anche na.omit)
+#per eliminare la riga contente l'NA
 Envdata <- mydata[-15,]
 View(Envdata)
 # devo eliminare la riga 15 anche nel dataframe della matrice di comunità
@@ -37,7 +38,7 @@ View(newdata)
 BCI2<- newdata
 # riosservo
 View(BCI2)
-#alla riga 12 e 45 sono presenti altri NA in quanto erano spazi vuoti
+#alla riga 12 e 45 sono presenti altri NA
 ## rimuovo le righe contenenti i nuovi NA
 Envdata <- Envdata[-c(12, 44),]
 # rimuovo le stesse righe anche dall'altro dataframe
@@ -69,5 +70,9 @@ plot(sp_richness~Precipitation,data=BCIsprichness)
 cor.test(BCIsprichness$Precipitation,BCIsprichness$sp_richness)
 #2 plot
 plot(sp_richness~Elevation,data=BCIsprichness)
-
+# test di correlazione tra altitudine e ricchezza di specie
+cor.test(BCIsprichness$Elevation,BCIsprichness$sp_richness)
+#3 plot
+plot(sp_richness~EnvHet,data=BCIsprichness)
+cor.test(BCIsprichness$EnvHet,BCIsprichness$sp_richness)
 
