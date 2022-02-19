@@ -55,6 +55,8 @@ dev.off()
 Age.cat<-table(Envdata$Age.cat)
 barplot(Age.cat,main="Forest age category",ylab="Frequenze",col=c("red","blue"))
 dev.off()
+River <-table(Envdata$River)
+barplot(River,main="River",ylab="Frequenze",col=c("red","lightblue"))
 Habitat<-table(Envdata$Habitat)
 barplot(Habitat,main="Habitat",ylab="Frequenze",col=c("yellow","green","red", "blue","orange"))
 dev.off()
@@ -73,6 +75,15 @@ plot(sp_richness~Elevation,data=BCIsprichness)
 # test di correlazione tra altitudine e ricchezza di specie
 cor.test(BCIsprichness$Elevation,BCIsprichness$sp_richness)
 #3 plot
+plot(sp_richness~UTM.EW,data=BCIsprichness)
+# test di correlazione tra coordinate Est Ovest e ricchezza di specie
+cor.test(BCIsprichness$UTM.EW,BCIsprichness$sp_richness)
+#4 plot
+plot(sp_richness~UTM.NS,data=BCIsprichness)
+# test di correlazione tra coordinate Nord Sud e ricchezza di specie
+cor.test(BCIsprichness$UTM.NS,BCIsprichness$sp_richness)
+#5 plot
 plot(sp_richness~EnvHet,data=BCIsprichness)
+# test di correlazione tra Indice di Diversità di Simpson e ricchezza di specie
 cor.test(BCIsprichness$EnvHet,BCIsprichness$sp_richness)
 
